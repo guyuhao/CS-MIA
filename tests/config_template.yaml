@@ -1,0 +1,86 @@
+# global configuration
+dataset: cifar100             # dataset, support mnist, cifar10, cifar100, purchase100, texas100
+num_classes: 100              # number of classes in the dataset
+cuda: 1                       # whether to use GPU, 1 (use) or 0
+log: temp                     # filename of the log, the log is saved in "tests/result/"
+
+# data configuration
+split_data: 1                 # whether to divide dataset for target and shadow model, 1 or 0.
+                              # If 1, the division results are saved in "tests/data/xx/" (xx refers to dataset)
+                              # If 0, load the existing division results saved in "tests/data/xx/"
+non_iid: 0                    # whether to divide dataset in non-IID setting, 1 or 0
+non_iid_alpha: 0.9            # the alpha of Dirichlet distribution, effective only if non_iid is 1
+
+# save configuration
+save_select: 0                # whether to save ids of selected clients over rounds, 1 or 0
+                              # If 1, the results are saved in "tests/data/xx/" (xx refers to dataset)
+save_model: 0                 # whether to save model parameters during training, 1 or 0
+                              # If 1, the results are saved in "tests/checkpoints/xx_yy/" (xx refers to dataset, yy refers to target_model)
+save_data: 0                  # whether to save training and testing data for CS-MIA attack model, 1 or 0
+                              # If 1, the results are saved in "tests/data/"
+# load configuration
+load_target: 0                # whether to load target model saved in file, 1 or 0
+load_shadow: 0                # whether to load shadow model saved in file, 1 or 0
+load_select: 0                # whether to load ids of selected clients over rounds saved in file, 1 or 0
+load_data: 0                  # whether to load training and testing data for CS-MIA attack model saved in file, 1 or 0
+
+# target model configuration
+target_model: alexnet
+target_train_size: 50000      # total training size of all participants for the target model
+target_test_size: 10000
+target_batch_size: 128
+target_gamma: 0.1
+target_wd: 0.0001
+target_momentum: 0.9target_learning_rate: 0.1
+target_epochs: 50             # local training epochs of participants on each round
+target_schedule: [201]
+
+# shadow model configuration
+shadow_learning_rate: 0.1
+shadow_epochs: 50
+shadow_schedule: [201]
+
+# membership inference attack(mia) global configuration
+attack_train_m_size: 10000    # size of training members for mia
+attack_train_nm_size: 10000   # size of training non-members for mia
+attack_test_m_size: 10000     # size of testing members for mia
+attack_test_nm_size: 10000    # size of testing non-members for mia
+
+# CS-MIA configuration
+cs_mia_learning_rate: 0.001
+cs_mia_batch_size: 128
+cs_mia_n_hidden: 64
+cs_mia_epochs: 50
+cs_mia_schedule: [122]
+cs_mia_gamma: 0.1
+cs_mia_wd: 0.0005
+cs_mia_client: 1              # id of the malicious participant in the local attack
+cs_mia_attack_step: 1
+
+# ML-Leaks configuration
+ml_leaks_learning_rate: 0.001
+ml_leaks_batch_size: 128
+ml_leaks_n_hidden: 64
+ml_leaks_epochs: 50
+ml_leaks_schedule: [81,122]
+ml_leaks_gamma: 0.1
+ml_leaks_wd: 0.0005
+
+# whitebox configuration
+whitebox_learning_rate: 0.0001
+whitebox_batch_size: 64
+whitebox_epochs: 100
+whitebox_observed_round: [30,35,40,45,50]
+
+# federated learning configuration
+n_client: 5                   # number of participants
+n_selected_client: 3          # number of selected clients on each round
+global_epochs: 50             # rounds
+target_client: 0              # id of the target participant for mia
+client_train_size: 10000      # training size of each participant, only used in IID setting
+aggregation_algorithm: FedAvg # the aggregation algorithm performed by the server, support FedAvg and FedSGD
+
+# differential privacy configuration
+clip: 5
+epsilon: 60
+delta: 0.00001

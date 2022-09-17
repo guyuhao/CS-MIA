@@ -1,0 +1,4 @@
+tests/checkpoints*
+tests/data/
+tests/result/
+.idea/

@@ -1,0 +1,80 @@
+# global configuration
+dataset: purchase100
+num_classes: 100
+cuda: 1
+log: server_mia_compare_purchase100_fcn_5
+
+# data configuration
+split_data: 1
+non_iid: 0
+
+# save configuration
+save_select: 1
+save_model: 0
+save_data: 0
+
+# load configuration
+load_target: 0
+load_shadow: 1
+load_select: 1
+load_data: 0
+
+# target model configuration
+target_model: fcn
+target_train_size: 50000
+target_test_size: 45000
+target_batch_size: 64
+target_gamma: 0.1
+target_wd: 0.0001
+target_momentum: 0.9
+target_learning_rate: 0.001
+target_epochs: 5
+target_schedule: [150,225]
+# shadow model configuration
+shadow_learning_rate: 0.001
+shadow_epochs: 100
+shadow_schedule: [150,225]
+
+# membership inference attack(mia) global configuration
+attack_train_m_size: 5000
+attack_train_nm_size: 5000
+attack_test_m_size: 5000
+attack_test_nm_size: 5000
+
+# CS-MIA configuration
+cs_mia_learning_rate: 0.001
+cs_mia_batch_size: 128
+cs_mia_n_hidden: 64
+cs_mia_epochs: 50
+cs_mia_schedule: [122]
+cs_mia_gamma: 0.1
+cs_mia_wd: 0.0005
+cs_mia_client: 1
+
+# ML-Leaks configuration
+ml_leaks_learning_rate: 0.001
+ml_leaks_batch_size: 128
+ml_leaks_n_hidden: 64
+ml_leaks_epochs: 50
+ml_leaks_schedule: [81,122]
+ml_leaks_gamma: 0.1
+ml_leaks_wd: 0.0005
+
+# whitebox configuration
+whitebox_learning_rate: 0.0001
+whitebox_batch_size: 64
+whitebox_epochs: 100
+whitebox_observed_round: [30,35,40,45,50]
+
+# federated learning configuration
+n_client: 5
+n_selected_client: 3
+global_epochs: 50
+target_client: 0
+client_train_size: 10000
+
+# differential privacy configuration
+clip: 5
+epsilon: 8.6
+delta: 0.00001
+
